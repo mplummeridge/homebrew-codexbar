@@ -54,13 +54,6 @@ class CodexbarMqtt < Formula
     environment_variables PATH: std_service_path_env
   end
 
-  test do
-    assert_match "codexbar-mqtt", shell_output("#{bin}/codexbar-mqtt version")
-    schema = shell_output("#{bin}/codexbar-mqtt schema")
-    assert_match "io.github.mplummeridge.codexbar_mqtt.observation.v1", schema
-    assert_match "codexbar/discovery/v1", schema
-  end
-
   def caveats
     <<~EOS
       Config:
@@ -76,4 +69,12 @@ class CodexbarMqtt < Formula
         brew services start codexbar-mqtt
     EOS
   end
+
+  test do
+    assert_match "codexbar-mqtt", shell_output("#{bin}/codexbar-mqtt version")
+    schema = shell_output("#{bin}/codexbar-mqtt schema")
+    assert_match "io.github.mplummeridge.codexbar_mqtt.observation.v1", schema
+    assert_match "codexbar/discovery/v1", schema
+  end
+
 end
