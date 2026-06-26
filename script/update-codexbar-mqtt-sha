@@ -1,0 +1,27 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+version="${1:-v0.2.0}"
+formula="Formula/codexbar-mqtt.rb"
+url="https://github.com/mplummeridge/codexbar-mqtt/archive/refs/tags/${version}.tar.gz"
+
+sha="$(curl -L "$url" | shasum -a 256 | awk '{print $1}')"
+
+python3 - "$formula" "$version" "$sha" <<'PY'
+from pathlib import Path
+import re
+import sys
+
+formula = Path(sys.argv[1])
+version = sys.argv[2]
+sha = sys.argv[3]
+text = formula.read_text()
+text = re.sub(r'url "https://github\.com/mplummeridge/codexbar-mqtt/archive/refs/tags/[^"]+\.tar\.gz"',
+              f'url "https://github.com/mplummeridge/codexbar-mqtt/archive/refs/tags/{version}.tar.gz"',
+              text)
+text = text.replace('sha256 "REPLACE_WITH_SOURCE_TARBALL_SHA256"', f'sha256 "{sha}"')
+text = re.sub(r'sha256 "[0-9a-fA-F]{64}"', f'sha256 "{sha}"', text)
+formula.write_text(text)
+PY
+
+echo "Updated $formula to $version sha256=$sha"
