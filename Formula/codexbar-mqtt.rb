@@ -76,5 +76,4 @@ class CodexbarMqtt < Formula
     assert_match "io.github.mplummeridge.codexbar_mqtt.observation.v1", schema
     assert_match "codexbar/discovery/v1", schema
   end
-
 end
