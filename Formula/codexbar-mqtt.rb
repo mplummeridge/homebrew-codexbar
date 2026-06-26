@@ -2,7 +2,7 @@ class CodexbarMqtt < Formula
   desc "Publish raw CodexBar observations to MQTT"
   homepage "https://github.com/mplummeridge/codexbar-mqtt"
   url "https://github.com/mplummeridge/codexbar-mqtt/archive/refs/tags/v0.2.0.tar.gz"
-  sha256 "REPLACE_WITH_SOURCE_TARBALL_SHA256"
+  sha256 "666e57c3ad4745e991f995fed21b149463520097e82115aaad8de87f0e9ced7c"
   license "MIT"
   head "https://github.com/mplummeridge/codexbar-mqtt.git", branch: "main"
 
